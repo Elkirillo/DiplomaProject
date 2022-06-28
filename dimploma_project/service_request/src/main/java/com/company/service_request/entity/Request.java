@@ -52,7 +52,8 @@ public class Request {
     @Column(name = "STATUS")
     private String status;
 
-    @Column(name = "DESCRIPTION")
+    @NotNull
+    @Column(name = "DESCRIPTION", nullable = false)
     @Lob
     private String description;
 
@@ -68,12 +69,12 @@ public class Request {
         this.reports = reports;
     }
 
-    public void setStatus(Status.CaptionPosition status) {
-        this.status = status == null ? "Not viewed" : status.getId();
+    public void setStatus(Status status) {
+        this.status = status == null ? null : status.getId();
     }
 
-    public Status.CaptionPosition getStatus() {
-        return status == null ? null : Status.CaptionPosition.fromId(status);
+    public Status getStatus() {
+        return status == null ? null  : Status.fromId(status);
     }
 
     public String getDescription() {

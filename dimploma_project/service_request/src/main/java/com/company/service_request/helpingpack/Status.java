@@ -6,38 +6,28 @@ import io.jmix.ui.meta.StudioProperty;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public interface Status {
+public enum Status implements EnumClass<String> {
+    Not_Resolved("Not Resolved"),
+    In_progress("In progress"),
+    Resolved("Resolved");
 
-    CaptionPosition getCaptionPosition();
+    private String id;
 
-    @StudioProperty(name = "captionPosition", defaultValue = "Not viewed", options = {"Not viewed",
-            "Under consideration",
-            "Submitted for decision",
-            "Resolved",
-            "Not Resolved"})
-    void setCaptionPosition(CaptionPosition position);
-
-    enum CaptionPosition implements EnumClass<String> {
-        Not_viewed,
-        Under_consideration,
-        Submitted_for_decision,
-        Resolved,
-        Not_Resolved;
-
-        @Override
-        public String getId() {
-            return name();
-        }
-
-        @Nullable
-        public static CaptionPosition fromId(String id) {
-            for (CaptionPosition captionPosition : CaptionPosition.values()) {
-                if (Objects.equals(id, captionPosition.getId())) {
-                    return captionPosition;
-                }
-            }
-            return null;
-        }
+    Status(String value) {
+        this.id = value;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    @Nullable
+    public static Status fromId(String id) {
+        for (Status at : Status.values()) {
+            if (at.getId().equals(id)) {
+                return at;
+            }
+        }
+        return null;
+    }
 }
